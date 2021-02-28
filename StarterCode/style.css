@@ -4,3 +4,9 @@ body {
   background-size: auto; 
 /* I am the original photographer of this photo. */
 } 
+
+.footer {
+  bottom: 0;
+  text-align: center;
+  color: white;
+}
