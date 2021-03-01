@@ -21,7 +21,7 @@ function buildPlot() {
 
 // Create a horizantabl bar chart
 
-function optionChange(changeId){
+function optionChanged(changeId){
     HBarChart(changeId)
 
 };
@@ -30,7 +30,7 @@ buildPlot();
 d3.selectAll("#selDataset").on("change", buildPlot);
 
 function HBarChart(metaId){
-    d3.json(sdata).then(function(sampledata){
+    d3.json(sdata).then((data) => {
     // Grab values from the json to build the plots. Using the "samples" key
     var datasamples = data.samples;
     var sid = datasamples.map(row=>row.id).indexOf(metaId)
@@ -39,16 +39,18 @@ function HBarChart(metaId){
     var OtuId =  datasamples.map(row=>row.otu_ids)
     // Slice them All values to get the top  10
     var top10values = Samplevalues[sid].slice(0,10)
-    var top10OtuId = OtuId[sid].slice(0,10)
-    // Grabbing the labels for the chart
-    var Labelstop10 = datasamples.map(row=>row.otu_labels).slice(0,10)
+    var top10Id = OtuId[sid].slice(0,10)
+
 
 // Create the trace to make the bar chart
 
 var Htrace = {
-    x: top10OtuId,
-    y: top10values,
-    text: Labelstop10,
+    // Putting the top10 values in the x axis. And reversing
+    x: top10values.reverse(),
+    // Puttting the top 10 id
+    y: top10Id.map(z => `UTO ${z}` ),
+    // I wanted a red bar chart instead of the default blue
+    marker: {color: "red"},
     type: "bar",
     orientation: "h"
 
@@ -57,7 +59,12 @@ var Htrace = {
 // Create a layout for the bar chart
 
 var hlayout = {
-    title: "Top 10 OTU ID"
+    title: "Top 10 UTO ID",
+    xaxis: { title: 'OTU Values'},
+    yaxis: { title: 'OTU IDs'},
+  
+
+
 }
 
 // Plot the chart
