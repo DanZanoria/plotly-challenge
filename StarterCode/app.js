@@ -31,7 +31,7 @@ d3.selectAll("#selDataset").on("change", buildPlot);
 
 function HBarChart(metaId){
     d3.json(sdata).then(function(sampledata){
-    // Grab values from the json to build the plots. We are using the "samples" key
+    // Grab values from the json to build the plots. Using the "samples" key
     var datasamples = data.samples;
     var sid = datasamples.map(row=>row.id).indexOf(metaId)
     // Get the values of the sample and their otu_id
@@ -40,13 +40,15 @@ function HBarChart(metaId){
     // Slice them All values to get the top  10
     var top10values = Samplevalues[sid].slice(0,10)
     var top10OtuId = OtuId[sid].slice(0,10)
-  
+    // Grabbing the labels for the chart
+    var Labelstop10 = datasamples.map(row=>row.otu_labels).slice(0,10)
 
 // Create the trace to make the bar chart
 
 var Htrace = {
     x: top10OtuId,
     y: top10values,
+    text: Labelstop10,
     type: "bar",
     orientation: "h"
 
