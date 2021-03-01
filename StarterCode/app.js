@@ -1,15 +1,12 @@
-// Call updatePlotly() when a change takes place to the DOM
+function init(bacteria) { };
 
-function init(bacteria) {
-  
-      // Build the plot with the new stock
- 
-    };
-
+// Create constant variable to refer the json
 const sdata = "samples.json"
 
+
+// capture the names of te metadata
 function buildPlot() {
-    d3.json("samples.json").then(function(sampledata){
+    d3.json(sdata).then(function(sampledata){
         var mDataset = d3.select("#selDataset");
         var sample_names = sampledata.names;
     
