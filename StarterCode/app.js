@@ -1,11 +1,12 @@
 function init() { };
 
-// Create constant variable to refer the json
+// Create constant variable to refer the json. I dont want to type sample.json repeatedly
 const sdata = "samples.json"
 
 
 // capture the names of te metadata to get the dropdown menu
 function buildPlot() {
+    // Use d3 to connect to the json. There will be many variation or copy and pating this specific line of code
     d3.json(sdata).then(function(sampledata){
         var mDataset = d3.select("#selDataset");
         var sample_names = sampledata.names;
@@ -17,6 +18,22 @@ function buildPlot() {
                     .property("value", sample)
         });
 })};
+
+// Create a function that will capture the data found in the metadata 
+function Meta(metaId) {
+    // Use d3 to connect to the json
+    d3.json(sdata).then((data) => {
+        MetaHuman = data.metadata
+        var fdata = MetaHuman.filter(object => object.id == metaId)[0];
+        // Connect to the sample-metadata id on the html through a variable
+        var metapanel = d3.select("#sample-metadata")
+
+        // Append each key value pair the object.entries code
+        Object.entries(fdata).forEach(([key, value]) => {
+            metapanel.append("panel").text(`${key}: ${value}`)
+        });
+    });
+};
 
 
 // Create a horizantabl bar chart
@@ -103,6 +120,7 @@ function BubblesC (metaId) {
 function optionChanged(changeId){
     HBarChart(changeId)
     BubblesC(changeId)
+    Meta(changeId)
 };
 
 // Builds the plot. Initializes the first function
