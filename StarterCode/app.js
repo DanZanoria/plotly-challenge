@@ -1,20 +1,25 @@
-// build the function 
+// Call updatePlotly() when a change takes place to the DOM
 
-console.log("test")
-function GetId (id) {
-d3.json(samples.json).then((sampleD) => {
-    console.log(sampleD)
+function init(bacteria) {
+  
+      // Build the plot with the new stock
+ 
+    };
 
-    // Get the Washing frequency
-    var frequency = data.metadata.map( md => md.wfreq)
-    // Console log to see if it work
-    console.log(`${frequency}`)
-}
-)
+const sdata = "samples.json"
+
+function buildPlot() {
+    d3.json("samples.json").then(function(sampledata){
+        var mDataset = d3.select("#selDataset");
+        var sample_names = sampledata.names;
     
-//     data.names.forEach((name => {
-//     var option = idSelect.append("option");
-//     option.text(name);
+        sample_names.forEach((sample) => {
+                mDataset
+                    .append("option")
+                    .text(sample)
+                    .property("value", sample)
+        });
+})};
 
-// }
-}
+buildPlot();
+// d3.selectAll("#selDataset").on("change", buildPlot);
