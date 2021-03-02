@@ -44,13 +44,13 @@ function HBarChart(metaId){
     var datasamples = data.samples;
     // I like having the letter z in my for statements as an excuse to use the first letter in my last name. 
     // Capture the id. 
-    var sid = datasamples.map(z=>z.id).indexOf(metaId)
+    var sid = datasamples.map(z=>z.id).indexOf(metaId);
     // Get the values of the sample and their otu_id
-    var Samplevalues = datasamples.map(z =>z.sample_values)
-    var OtuId =  datasamples.map(z=>z.otu_ids)
+    var Samplevalues = datasamples.map(z =>z.sample_values);
+    var OtuId =  datasamples.map(z=>z.otu_ids);
     // Slice the above values to get the top  10
-    var top10values = Samplevalues[sid].slice(0,10)
-    var top10Id = OtuId[sid].slice(0,10)
+    var top10values = Samplevalues[sid].slice(0,10);
+    var top10Id = OtuId[sid].slice(0,10).map(z => `UTO ${z}` );
 
 
 // Create the trace to make the bar chart
@@ -59,7 +59,7 @@ var Htrace = {
     // Putting the top10 values in the x axis. And reversing
     x: top10values.reverse(),
     // Puttting the top 10 id
-    y: top10Id.map(z => `UTO ${z}` ),
+    y: top10Id,
     // I wanted a red bar chart instead of the default blue
     marker: {color: "red"},
     type: "bar",
@@ -77,14 +77,14 @@ var hlayout = {
 };
 
 // Plot the chart
-Plotly.newPlot("bar", [Htrace], hlayout)
+Plotly.newPlot("bar", [Htrace], hlayout);
 
 });
 };
 
 // This is mostly a copy and paste from the horizantable bar chart with a few minor changes
 // Create a Bubble Chart
-
+// I wanted to put everything in one function. But I got lost and confuse with all these { () }
 
 function BubblesC (metaId) {
     d3.json(sdata).then((data) => {
@@ -119,13 +119,13 @@ function BubblesC (metaId) {
     });
 };
 
-// Starting the guage chart
-function GaugeChart (metaId) {
-    d3.json(sdata).then((data) => {
+// // Starting the guage chart
+// function GaugeChart (metaId) {
+//     d3.json(sdata).then((data) => {
 
-    // I only need the the washing frequency
-    var MetaHuman = data.metadata
-    var WFreqency = MetaHuman.map(z =>z.wfreq)
+//     // I only need the the washing frequency
+//     var MetaHuman = data.metadata
+//     var WFreqency = MetaHuman.map(z =>z.wfreq)
 
 // // Creat the guage
 //     var gaugedata = [
@@ -167,11 +167,12 @@ function GaugeChart (metaId) {
 
 // function that will trigger the javascript whenever an ID is Selected
 // This is needed for the entire thing to work
-function optionChanged(changeId){
-    HBarChart(changeId)
-    BubblesC(changeId)
-    Meta(changeId)
-    GaugeChart(changeId)
+function optionChanged(henshin){
+    HBarChart(henshin)
+    BubblesC(henshin)
+    Meta(henshin)
+    // henshin is the japanese word for transform. And thats what this function is doing. Without this  it wont transform the charts corressponding to their ID.
+    // GaugeChart(changeId)
 };
 
 // Builds the plot. Initializes the first function
