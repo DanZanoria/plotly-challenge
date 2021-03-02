@@ -48,12 +48,9 @@ function HBarChart(metaId){
     // Get the values of the sample and their otu_id
     var Samplevalues = datasamples.map(z =>z.sample_values)
     var OtuId =  datasamples.map(z=>z.otu_ids)
-    // Slice them All values to get the top  10
+    // Slice the above values to get the top  10
     var top10values = Samplevalues[sid].slice(0,10)
     var top10Id = OtuId[sid].slice(0,10)
-    // The readme wants otulabels.  So im ignoring that. While I understand why it wants it. But i cant seem to figure it out.
-    // The code im using is this
-    // var Otulabels = datasamples.map(z => z.otu_labels)
 
 
 // Create the trace to make the bar chart
@@ -63,7 +60,6 @@ var Htrace = {
     x: top10values.reverse(),
     // Puttting the top 10 id
     y: top10Id.map(z => `UTO ${z}` ),
-    // text: Otulabels,
     // I wanted a red bar chart instead of the default blue
     marker: {color: "red"},
     type: "bar",
@@ -96,24 +92,21 @@ function BubblesC (metaId) {
     var sid = datasamples.map(z=>z.id).indexOf(metaId)
     var OtuId =  datasamples.map(z=>z.otu_ids)[sid];
     var Samplevalues = datasamples.map(z =>z.sample_values)[sid]
-    var Otulabels = datasamples.map(z => z.otu_labels)
+
 
     // Create the Bubble Chart
     var Htrace = {
         // Get the X and Y axis
         x: OtuId,
         y: Samplevalues,
-        // text: Otulabels,
         // Create the Bubble chart through mode
         mode: `markers`,
 
-        // Make the size of the bubbles relative to their values. Without it it just by tiny dots
-        // I wanted pink this time
-        // I would love to know how to change the colors into a rainbow. 
-        // The readme says to make the color the same otu_ids which in my case is OtuId but all i see is blue. And i want a new color.
+        // Make the size of the bubbles relative to their values. Without it it's just by tiny dots
+        // Colors will be based the values found their id
         marker: {
             size: Samplevalues,
-            color:  "pink"
+            color:  OtuId
         }
     
     };
@@ -131,14 +124,15 @@ function GaugeChart (metaId) {
     d3.json(sdata).then((data) => {
 
     // I only need the the washing frequency
-    MetaHuman = data.metadata.wfreq
+    var MetaHuman = data.metadata
+    var WFreqency = MetaHuman.map(z =>z.wfreq)
 
 // Creat the guage
     var gaugedata = [
         {
         domain: { x: [0, 10], y: [0, 10] },
-        value: MetaHuman,
-        title: { text: "Washing Frequency", font: {size: 24} },
+        value: WFreqency,
+        title: { text: "Washing Frequency", font: {size: 36} },
         delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
         gauge: {
             bar: { color: "blue"},
@@ -147,8 +141,8 @@ function GaugeChart (metaId) {
             bordercolor: "black",
             steps: [
                 { range: [0, 3],  color:"yellow"},
-                { range: [4, 7],  color:"pink"},
-                { range: [8, 10],  color:"orange"}
+                { range: [3, 7],  color:"pink"},
+                { range: [7, 10],  color:"orange"}
             ],
             threshold: {
                 line: { color: "purple", width: 4},
@@ -158,7 +152,8 @@ function GaugeChart (metaId) {
         type: "indicator",
         mode: "gauge+number"
         } ];
-
+    
+    // Createe the layout
     var glayout = {
         width: 500,
         height: 400,
