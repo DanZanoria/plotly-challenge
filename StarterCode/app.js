@@ -91,7 +91,7 @@ Plotly.newPlot("bar", [Htrace], hlayout)
 
 function BubblesC (metaId) {
     d3.json(sdata).then((data) => {
-    // Everyth variable is a copy a paste from the Horizantal Bar chart
+    // Every variable is a copy a paste from the HorizantalBar
     var datasamples = data.samples
     var sid = datasamples.map(z=>z.id).indexOf(metaId)
     var OtuId =  datasamples.map(z=>z.otu_ids)[sid];
@@ -123,6 +123,24 @@ function BubblesC (metaId) {
     
     // Plot the chart
     Plotly.newPlot("bubble", [Htrace], hlayout)
+    });
+};
+
+
+// Create a Gauge Chart
+
+function BubblesC (metaId) {
+    d3.json(sdata).then((data) => {
+
+    var data = [
+        {
+        domain: { x: [0, 1], y: [0, 1] },
+        value: 270,
+        title: { text: "Speed" },
+        type: "indicator",
+        mode: "gauge+number"
+        } ];
+        
     });
 };
 
