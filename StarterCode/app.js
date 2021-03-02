@@ -127,42 +127,42 @@ function GaugeChart (metaId) {
     var MetaHuman = data.metadata
     var WFreqency = MetaHuman.map(z =>z.wfreq)
 
-// Creat the guage
-    var gaugedata = [
-        {
-        domain: { x: [0, 10], y: [0, 10] },
-        value: WFreqency,
-        title: { text: "Washing Frequency", font: {size: 36} },
-        delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
-        gauge: {
-            bar: { color: "blue"},
-            bgcolor: "gray",
-            borderwidth: 3,
-            bordercolor: "black",
-            steps: [
-                { range: [0, 3],  color:"yellow"},
-                { range: [3, 7],  color:"pink"},
-                { range: [7, 10],  color:"orange"}
-            ],
-            threshold: {
-                line: { color: "purple", width: 4},
-                thickness: 0.75
-            }
-        },
-        type: "indicator",
-        mode: "gauge+number"
-        } ];
+// // Creat the guage
+//     var gaugedata = [
+//         {
+//         domain: { x: [0, 10], y: [0, 10] },
+//         value: WFreqency,
+//         title: { text: "Washing Frequency", font: {size: 36} },
+//         delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+//         gauge: {
+//             bar: { color: "blue"},
+//             bgcolor: "gray",
+//             borderwidth: 3,
+//             bordercolor: "black",
+//             steps: [
+//                 { range: [0, 3],  color:"yellow"},
+//                 { range: [3, 7],  color:"pink"},
+//                 { range: [7, 10],  color:"orange"}
+//             ],
+//             threshold: {
+//                 line: { color: "purple", width: 4},
+//                 thickness: 0.75
+//             }
+//         },
+//         type: "indicator",
+//         mode: "gauge+number"
+//         } ];
     
-    // Createe the layout
-    var glayout = {
-        width: 500,
-        height: 400,
-        font: { color: "darkblue", family: "Arialbold"}
-    }
-    Plotly.newPlot('gauge', gaugedata, glayout)
+//     // Createe the layout
+//     var glayout = {
+//         width: 500,
+//         height: 400,
+//         font: { color: "darkblue", family: "Arialbold"}
+//     }
+//     Plotly.newPlot('gauge', gaugedata, glayout)
 
-    });
-};
+//     });
+// };
 
 
 // function that will trigger the javascript whenever an ID is Selected
