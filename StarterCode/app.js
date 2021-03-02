@@ -130,17 +130,41 @@ function BubblesC (metaId) {
 function GaugeChart (metaId) {
     d3.json(sdata).then((data) => {
 
+    // I only need the the washing frequency
     MetaHuman = data.metadata.wfreq
 
-    var data = [
+// Creat the guage
+    var gaugedata = [
         {
         domain: { x: [0, 10], y: [0, 10] },
         value: MetaHuman,
-        title: { text: "Speed" },
+        title: { text: "Washing Frequency", font: {size: 24} },
+        delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
+        gauge: {
+            bar: { color: "blue"},
+            bgcolor: "gray",
+            borderwidth: 3,
+            bordercolor: "black",
+            steps: [
+                { range: [0, 3],  color:"yellow"},
+                { range: [4, 7],  color:"pink"},
+                { range: [8, 10],  color:"orange"}
+            ],
+            threshold: {
+                line: { color: "purple", width: 4},
+                thickness: 0.75
+            }
+        },
         type: "indicator",
         mode: "gauge+number"
         } ];
-        
+
+    var glayout = {
+        width: 500,
+        height: 400,
+        font: { color: "darkblue", family: "Arialbold"}
+    }
+    Plotly.newPlot('gauge', gaugedata, glayout)
 
     });
 };
