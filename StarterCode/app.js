@@ -20,6 +20,7 @@ function buildPlot() {
 })};
 
 // Create a function that will capture the data found in the metadata 
+// This is a late edit, but I am going to stick to metid as my method. Too lazy to change it. That name will only be relevant for this portion of the code.
 function Meta(metaId) {
     // Use d3 to connect to the json
     d3.json(sdata).then((data) => {
@@ -42,7 +43,7 @@ function HBarChart(metaId){
     // Grab values from the json to build the plots. Using the "samples" key
     var datasamples = data.samples;
     // I like having the letter z in my for statements as an excuse to use the first letter in my last name. 
-    // Get the id in the samples key
+    // Capture the id. 
     var sid = datasamples.map(z=>z.id).indexOf(metaId)
     // Get the values of the sample and their otu_id
     var Samplevalues = datasamples.map(z =>z.sample_values)
@@ -91,7 +92,6 @@ Plotly.newPlot("bar", [Htrace], hlayout)
 
 function BubblesC (metaId) {
     d3.json(sdata).then((data) => {
-    // Every variable is a copy a paste from the HorizantalBar
     var datasamples = data.samples
     var sid = datasamples.map(z=>z.id).indexOf(metaId)
     var OtuId =  datasamples.map(z=>z.otu_ids)[sid];
@@ -126,23 +126,25 @@ function BubblesC (metaId) {
     });
 };
 
-
-// Create a Gauge Chart
-
-function BubblesC (metaId) {
+// Starting the guage chart
+function GaugeChart (metaId) {
     d3.json(sdata).then((data) => {
+
+    MetaHuman = data.metadata.wfreq
 
     var data = [
         {
-        domain: { x: [0, 1], y: [0, 1] },
-        value: 270,
+        domain: { x: [0, 10], y: [0, 10] },
+        value: MetaHuman,
         title: { text: "Speed" },
         type: "indicator",
         mode: "gauge+number"
         } ];
         
+
     });
 };
+
 
 // function that will trigger the javascript whenever an ID is Selected
 // This is needed for the entire thing to work
@@ -150,6 +152,7 @@ function optionChanged(changeId){
     HBarChart(changeId)
     BubblesC(changeId)
     Meta(changeId)
+    GaugeChart(changeId)
 };
 
 // Builds the plot. Initializes the first function
