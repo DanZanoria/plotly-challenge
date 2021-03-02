@@ -42,6 +42,7 @@ function HBarChart(metaId){
     // Grab values from the json to build the plots. Using the "samples" key
     var datasamples = data.samples;
     // I like having the letter z in my for statements as an excuse to use the first letter in my last name. 
+    // Get the id in the samples key
     var sid = datasamples.map(z=>z.id).indexOf(metaId)
     // Get the values of the sample and their otu_id
     var Samplevalues = datasamples.map(z =>z.sample_values)
@@ -90,6 +91,7 @@ Plotly.newPlot("bar", [Htrace], hlayout)
 
 function BubblesC (metaId) {
     d3.json(sdata).then((data) => {
+    // Everyth variable is a copy a paste from the Horizantal Bar chart
     var datasamples = data.samples
     var sid = datasamples.map(z=>z.id).indexOf(metaId)
     var OtuId =  datasamples.map(z=>z.otu_ids)[sid];
