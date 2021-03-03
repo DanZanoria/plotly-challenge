@@ -9,9 +9,10 @@ function buildPlot() {
     // Use d3 to connect to the json. There will be many variation or copy and pating this specific line of code
     d3.json(sdata).then(function(sampledata){
         var mDataset = d3.select("#selDataset");
-        var sample_names = sampledata.names;
+        var sname= sampledata.names;
     
-        sample_names.forEach((sample) => {
+        // For each name in names, capture it and put it in the drop down menu
+        sname.forEach((sample) => {
                 mDataset
                     .append("option")
                     .text(sample)
@@ -32,7 +33,6 @@ function Meta(metaId) {
         // Append each key value pair the object.entries code
         Object.entries(fdata).forEach(([key, value]) => {
             metapanel.append("metapanel").text(`${key}: ${value}`)
-            // I could probably
         });
     });
 };
@@ -52,6 +52,7 @@ function HBarChart(metaId){
     // Slice the above values to get the top  10
     var top10values = Samplevalues[sid].slice(0,10);
     var top10Id = OtuId[sid].slice(0,10).map(z => `UTO ${z}` );
+    // Type UTO because without it you will only get the numbers
 
 
 // Create the trace to make the bar chart
@@ -181,4 +182,4 @@ function optionChanged(henshin){
 buildPlot();
 d3.selectAll("#selDataset").on("change", buildPlot);
 
-// Note. I dont understand the reason why this data exist. As of this writing Im half tempted to change the photo to the cover photo American Beuty Movie
+//. As of this writing Im half tempted to change the photo to the cover photo American Beuty Movie
