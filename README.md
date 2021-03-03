@@ -1,4 +1,7 @@
-# BioDiversity DashBoard (American Beauty)
+
+# BioDiversity DashBoard 
+
+(American Beauty)
 
 ![AmeriocanBeauty](images/AmericanBeauty.jpg)
 
